@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Elite Haven Hotels | Where Luxury Meets Timeless Comfort</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c9a84c;--gold2:#e8c97a;--dark:#0a0a0a;--dark2:#111;--dark3:#1a1a1a;--light:#f8f5ef;--white:#fff;--serif:'Playfair Display',serif;--sans:'Inter',sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--white);font-family:var(--sans);font-size:16px;line-height:1.7}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;background:rgba(10,10,10,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.2);padding:0 3rem;display:flex;align-items:center;justify-content:space-between;height:70px}
+.nav-logo{font-family:var(--serif);font-size:1.4rem;color:var(--gold);letter-spacing:2px}
+.nav-logo span{display:block;font-family:var(--sans);font-size:0.6rem;letter-spacing:5px;color:rgba(201,168,76,0.7);text-transform:uppercase}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.75);transition:.3s;font-weight:500}
+.nav-links a:hover{color:var(--gold)}
+.nav-book{background:var(--gold);color:var(--dark)!important;padding:0.5rem 1.4rem;border-radius:2px;font-weight:600!important}
+
+/* HERO */
+#hero{height:100vh;position:relative;overflow:hidden}
+.hero-slides{width:100%;height:100%;position:relative}
+.hero-slide{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 1.5s ease}
+.hero-slide.active{opacity:1}
+.slide-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.slide-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.4),rgba(0,0,0,0.7))}
+.hero-content{position:relative;z-index:2;text-align:center;padding:2rem;max-width:800px}
+.hero-eyebrow{font-size:0.7rem;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;font-weight:500}
+.hero-title{font-family:var(--serif);font-size:clamp(2.5rem,6vw,5rem);font-weight:400;line-height:1.15;margin-bottom:1.5rem;color:var(--white)}
+.hero-tagline{font-size:1rem;color:rgba(255,255,255,0.75);letter-spacing:1px;margin-bottom:3rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-gold{background:var(--gold);color:var(--dark);padding:0.85rem 2.5rem;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;border:none;cursor:pointer;transition:.3s;font-family:var(--sans)}
+.btn-gold:hover{background:var(--gold2)}
+.btn-outline{background:transparent;color:var(--white);padding:0.85rem 2.5rem;font-size:0.8rem;letter-spacing:3px;text-transform:uppercase;font-weight:500;border:1px solid rgba(255,255,255,0.5);cursor:pointer;transition:.3s;font-family:var(--sans)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.slide-dots{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:.3s}
+.dot.active{background:var(--gold);width:24px;border-radius:4px}
+
+/* BOOKING BAR */
+.booking-bar{background:var(--dark2);border-top:2px solid var(--gold);border-bottom:1px solid rgba(201,168,76,0.2);padding:1.5rem 3rem;display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap;justify-content:center}
+.booking-field{display:flex;flex-direction:column;gap:0.4rem}
+.booking-field label{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.booking-field input,.booking-field select{background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.3);color:var(--white);padding:0.6rem 1rem;font-family:var(--sans);font-size:0.9rem;outline:none;min-width:160px}
+.booking-field select option{background:var(--dark2)}
+.booking-field input:focus,.booking-field select:focus{border-color:var(--gold)}
+
+/* SECTIONS */
+section{padding:6rem 3rem}
+.section-label{font-size:0.65rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.section-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:1.5rem;line-height:1.2}
+.section-divider{width:60px;height:1px;background:var(--gold);margin:1.5rem 0}
+.section-body{color:rgba(255,255,255,0.7);max-width:600px;line-height:1.9;font-weight:300}
+
+/* ABOUT */
+#about{background:var(--dark2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;max-width:1200px;margin:0 auto}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2.5rem}
+.stat{border-left:2px solid var(--gold);padding-left:1rem}
+.stat-num{font-family:var(--serif);font-size:2.5rem;color:var(--gold);font-weight:400}
+.stat-label{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:0.25rem}
+.about-img{position:relative}
+.about-img img{width:100%;height:460px;object-fit:cover;border:1px solid rgba(201,168,76,0.2)}
+.about-badge{position:absolute;bottom:-1.5rem;right:-1.5rem;background:var(--gold);color:var(--dark);padding:1.5rem;text-align:center;min-width:140px;z-index:5}
+.badge-num{font-family:var(--serif);font-size:2rem;font-weight:700;display:block}
+.badge-text{font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+
+/* ROOMS */
+#rooms{background:var(--dark)}
+.rooms-header{text-align:center;max-width:600px;margin:0 auto 4rem}
+.rooms-header .section-divider{margin:1.5rem auto}
+.rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:1200px;margin:0 auto}
+.room-card{background:var(--dark2);border:1px solid rgba(201,168,76,0.15);overflow:hidden;transition:.4s;cursor:pointer}
+.room-card:hover{border-color:var(--gold);transform:translateY(-6px)}
+.room-img{height:260px;position:relative;overflow:hidden}
+.room-img img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.room-card:hover .room-img img{transform:scale(1.05)}
+.room-badge{position:absolute;top:1rem;right:1rem;background:var(--gold);color:var(--dark);font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;padding:0.3rem 0.8rem;font-weight:600;z-index:2}
+.room-info{padding:1.75rem}
+.room-name{font-family:var(--serif);font-size:1.4rem;font-weight:400;margin-bottom:0.5rem}
+.room-price{font-size:1.5rem;color:var(--gold);font-weight:300;margin-bottom:1rem}
+.room-price span{font-size:0.75rem;color:rgba(255,255,255,0.5);font-weight:400}
+.room-amenities{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.25rem}
+.amenity{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.7);font-size:0.65rem;letter-spacing:1px;padding:0.25rem 0.6rem;text-transform:uppercase}
+.room-btn{width:100%;background:transparent;border:1px solid var(--gold);color:var(--gold);padding:0.75rem;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:.3s;font-family:var(--sans);font-weight:500}
+.room-btn:hover{background:var(--gold);color:var(--dark)}
+
+/* LOCATIONS */
+#locations{background:var(--dark3)}
+.locations-content{max-width:1200px;margin:0 auto}
+.locations-header{text-align:center;margin-bottom:4rem}
+.locations-header .section-divider{margin:1.5rem auto}
+.map-container{background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.2);padding:2rem;border-radius:2px;margin-bottom:3rem;text-align:center;height:300px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem}
+.locations-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5rem}
+.location-card{text-align:center;padding:2rem 1rem;border:1px solid rgba(201,168,76,0.15);transition:.3s;cursor:pointer}
+.location-card:hover{border-color:var(--gold);background:rgba(201,168,76,0.05)}
+.loc-icon{font-size:2rem;color:var(--gold);margin-bottom:1rem}
+.loc-city{font-family:var(--serif);font-size:1.1rem;margin-bottom:0.3rem}
+.loc-state{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.4)}
+.loc-rooms{font-size:0.75rem;color:rgba(201,168,76,0.7);margin-top:0.5rem}
+
+/* SERVICES */
+#services{background:var(--dark2)}
+.services-header{text-align:center;margin-bottom:4rem;max-width:600px;margin-left:auto;margin-right:auto}
+.services-header .section-divider{margin:1.5rem auto}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:1200px;margin:0 auto}
+.service-item{padding:2.5rem 2rem;border:1px solid rgba(201,168,76,0.1);transition:.3s;text-align:center}
+.service-item:hover{border-color:rgba(201,168,76,0.5);background:rgba(201,168,76,0.04)}
+.service-icon{font-size:2.5rem;color:var(--gold);margin-bottom:1.5rem}
+.service-title{font-family:var(--serif);font-size:1.25rem;font-weight:400;margin-bottom:0.75rem}
+.service-desc{font-size:0.9rem;color:rgba(255,255,255,0.55);line-height:1.8;font-weight:300}
+
+/* GALLERY */
+#gallery{background:var(--dark)}
+.gallery-header{text-align:center;margin-bottom:3rem}
+.gallery-header .section-divider{margin:1.5rem auto}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,200px);gap:1rem;max-width:1200px;margin:0 auto}
+.gallery-item{overflow:hidden;cursor:pointer;position:relative}
+.gallery-item:first-child{grid-column:span 2;grid-row:span 2}
+.gallery-item:nth-child(2){grid-column:span 2}
+.gallery-item img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.gallery-item:hover img{transform:scale(1.05);filter:brightness(1.1)}
+
+/* BOOKING */
+#booking{background:var(--dark3)}
+.booking-section{max-width:800px;margin:0 auto;text-align:center}
+.booking-section .section-divider{margin:1.5rem auto}
+.booking-form{background:var(--dark2);border:1px solid rgba(201,168,76,0.2);padding:3rem;margin-top:3rem;text-align:left}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+.form-group{display:flex;flex-direction:column;gap:0.5rem}
+.form-group label{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold)}
+.form-group input,.form-group select{background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.25);color:var(--white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.9rem;outline:none;transition:.3s}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold);background:rgba(201,168,76,0.05)}
+.form-group select option{background:var(--dark2)}
+.form-full{grid-column:1/-1}
+.payment-section{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(201,168,76,0.15)}
+.payment-label{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:block}
+.payment-methods{display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.pay-btn{flex:1;min-width:120px;padding:0.75rem;background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.2);color:rgba(255,255,255,0.7);font-size:0.8rem;cursor:pointer;transition:.3s;font-family:var(--sans)}
+.pay-btn.active,.pay-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,0.08)}
+
+/* CONTACT */
+#contact{background:var(--dark2)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;max-width:1200px;margin:0 auto;align-items:start}
+.contact-form{display:flex;flex-direction:column;gap:1.25rem}
+.contact-form input,.contact-form textarea{background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.25);color:var(--white);padding:0.85rem 1rem;font-family:var(--sans);font-size:0.9rem;outline:none;transition:.3s;resize:vertical}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--gold);background:rgba(201,168,76,0.05)}
+.contact-info{margin-top:3rem}
+.contact-item{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid rgba(255,255,255,0.07)}
+.contact-item:last-child{border-bottom:none}
+.contact-icon{font-size:1.3rem;color:var(--gold);margin-top:0.2rem;flex-shrink:0}
+.contact-detail{font-size:0.8rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem}
+.contact-value{color:rgba(255,255,255,0.7);font-size:0.95rem;font-weight:300}
+
+/* CHATBOT */
+#chatbot{position:fixed;bottom:2rem;right:2rem;z-index:999}
+.chat-toggle{width:60px;height:60px;border-radius:50%;background:var(--gold);color:var(--dark);border:none;cursor:pointer;font-size:1.5rem;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(201,168,76,0.4);transition:.3s}
+.chat-toggle:hover{transform:scale(1.1);background:var(--gold2)}
+.chat-window{position:absolute;bottom:75px;right:0;width:360px;background:var(--dark2);border:1px solid rgba(201,168,76,0.3);box-shadow:0 8px 40px rgba(0,0,0,0.5);display:none;flex-direction:column;border-radius:2px;overflow:hidden;max-height:520px}
+.chat-window.open{display:flex}
+.chat-header{background:linear-gradient(135deg,#1a1208,#2d2010);padding:1rem 1.25rem;display:flex;align-items:center;gap:0.75rem;border-bottom:1px solid rgba(201,168,76,0.2)}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:var(--dark);flex-shrink:0}
+.chat-title{font-size:0.85rem;font-weight:600;color:var(--white)}
+.chat-subtitle{font-size:0.7rem;color:rgba(201,168,76,0.7);letter-spacing:1px}
+.chat-close{margin-left:auto;background:none;border:none;color:rgba(255,255,255,0.5);cursor:pointer;font-size:1.1rem;padding:0.25rem}
+.chat-close:hover{color:var(--gold)}
+.chat-messages{flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem;min-height:280px;max-height:320px}
+.chat-msg{max-width:85%;padding:0.75rem 1rem;font-size:0.875rem;line-height:1.6;border-radius:2px}
+.msg-ai{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);align-self:flex-start;color:rgba(255,255,255,0.85)}
+.msg-user{background:var(--gold);color:var(--dark);align-self:flex-end;font-weight:500}
+.msg-typing{display:flex;gap:4px;align-items:center;padding:0.75rem 1rem}
+.typing-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+.chat-input-area{padding:0.75rem;border-top:1px solid rgba(201,168,76,0.15);display:flex;gap:0.5rem}
+.chat-input{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(201,168,76,0.25);color:var(--white);padding:0.6rem 0.85rem;font-family:var(--sans);font-size:0.85rem;outline:none;border-radius:2px}
+.chat-input:focus{border-color:var(--gold)}
+.chat-send{background:var(--gold);color:var(--dark);border:none;padding:0.6rem 1rem;cursor:pointer;font-size:0.85rem;font-weight:600;border-radius:2px;transition:.3s;font-family:var(--sans)}
+.chat-send:hover{background:var(--gold2)}
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:0.4rem;padding:0 1rem 0.75rem}
+.sug-btn{background:transparent;border:1px solid rgba(201,168,76,0.25);color:rgba(201,168,76,0.8);font-size:0.7rem;padding:0.3rem 0.6rem;cursor:pointer;border-radius:2px;transition:.3s;font-family:var(--sans)}
+.sug-btn:hover{background:rgba(201,168,76,0.1);border-color:var(--gold)}
+
+/* FOOTER */
+footer{background:var(--dark);border-top:1px solid rgba(201,168,76,0.2);padding:4rem 3rem 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;max-width:1200px;margin:0 auto;margin-bottom:3rem}
+.footer-brand{font-family:var(--serif);font-size:1.5rem;color:var(--gold);margin-bottom:1rem}
+.footer-desc{font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.9;font-weight:300;max-width:260px}
+.footer-col h4{font-size:0.65rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:1.25rem}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.6rem}
+.footer-col ul li a{font-size:0.85rem;color:rgba(255,255,255,0.4);transition:.3s;font-weight:300}
+.footer-col ul li a:hover{color:var(--gold)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.07);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto}
+.footer-copy{font-size:0.75rem;color:rgba(255,255,255,0.25);letter-spacing:1px}
+.footer-legal{display:flex;gap:1.5rem}
+.footer-legal a{font-size:0.75rem;color:rgba(255,255,255,0.25);transition:.3s}
+.footer-legal a:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">ELITE HAVEN<span>Hotels &amp; Resorts</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#rooms">Suites</a></li>
+    <li><a href="#locations">Locations</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#booking" class="nav-book">Book Now</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-slides">
+    <div class="hero-slide active" id="slide0">
+      <div class="slide-bg" style="background: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">✦ Est. 1985 · Five Locations Across America ✦</p>
+        <h1 class="hero-title">Where Luxury Meets<br>Timeless Comfort</h1>
+        <p class="hero-tagline">Experience unparalleled elegance across our five iconic properties</p>
+        <div class="hero-actions">
+          <button class="btn-gold" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Reserve Your Suite</button>
+          <button class="btn-outline" onclick="document.getElementById('rooms').scrollIntoView({behavior:'smooth'})">Explore Suites</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide" id="slide1">
+      <div class="slide-bg" style="background: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">✦ Beverly Hills · New York · Chicago · D.C. · Maui ✦</p>
+        <h1 class="hero-title">Five Iconic Destinations,<br>One Legacy of Excellence</h1>
+        <p class="hero-tagline">From the Hollywood Hills to the shores of Maui — discover extraordinary</p>
+        <div class="hero-actions">
+          <button class="btn-gold" onclick="document.getElementById('locations').scrollIntoView({behavior:'smooth'})">Our Locations</button>
+          <button class="btn-outline" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="hero-slide" id="slide2">
+      <div class="slide-bg" style="background: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;"></div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">✦ Spa · Fine Dining · Concierge · Infinity Pool ✦</p>
+        <h1 class="hero-title">Every Detail,<br>Perfectly Curated</h1>
+        <p class="hero-tagline">World-class amenities crafted for the most discerning guests</p>
+        <div class="hero-actions">
+          <button class="btn-gold" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Our Services</button>
+          <button class="btn-outline" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-dots">
+    <div class="dot active" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+    <div class="dot" onclick="goSlide(2)"></div>
+  </div>
+</section>
+
+<div class="booking-bar">
+  <div class="booking-field"><label>Check-In</label><input type="date" id="checkin"/></div>
+  <div class="booking-field"><label>Check-Out</label><input type="date" id="checkout"/></div>
+  <div class="booking-field"><label>Location</label>
+    <select>
+      <option>Beverly Hills, CA</option>
+      <option>New York City, NY</option>
+      <option>Chicago, IL</option>
+      <option>Washington D.C.</option>
+      <option>Maui, HI</option>
+    </select>
+  </div>
+  <div class="booking-field"><label>Guests</label>
+    <select><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4+ Guests</option></select>
+  </div>
+  <div class="booking-field"><label>Suite Type</label>
+    <select><option>Any Suite</option><option>Deluxe Room</option><option>Executive Suite</option><option>Presidential Villa</option></select>
+  </div>
+  <button class="btn-gold" onclick="checkAvail()">Check Availability</button>
+</div>
+
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">A Legacy of Extraordinary Hospitality</h2>
+      <div class="section-divider"></div>
+      <p class="section-body">Founded in 1985, Elite Haven Hotels was born from a singular vision: to create spaces where luxury is not merely experienced, but felt in every breath. Our five iconic properties across America stand as monuments to craftsmanship, discretion, and world-class service.</p>
+      <p class="section-body" style="margin-top:1rem">From the golden boulevards of Beverly Hills to the volcanic shores of Maui, each Elite Haven property is meticulously tailored to its surroundings — yet unmistakably unified by our unwavering commitment to excellence.</p>
+      <div class="about-stats">
+        <div class="stat"><div class="stat-num">39+</div><div class="stat-label">Years of Excellence</div></div>
+        <div class="stat"><div class="stat-num">5</div><div class="stat-label">Iconic Locations</div></div>
+        <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Luxury Suites</div></div>
+        <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Guest Satisfaction</div></div>
+      </div>
+    </div>
+    <div class="about-img">
+      <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80" alt="Elite Haven Luxury Property">
+      <div class="about-badge">
+        <span class="badge-num">#1</span>
+        <span class="badge-text">Luxury Hotel<br>USA 2024</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="rooms">
+  <div class="rooms-header">
+    <p class="section-label">Accommodations</p>
+    <h2 class="section-title">Suites Crafted for the Extraordinary</h2>
+    <div class="section-divider"></div>
+    <p style="color:rgba(255,255,255,0.55);font-size:0.95rem;font-weight:300">Each suite is a sanctuary — designed with obsessive attention to comfort, privacy, and aesthetic perfection.</p>
+  </div>
+  <div class="rooms-grid">
+    <div class="room-card">
+      <div class="room-img">
+        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=500&q=80" alt="Deluxe Room">
+        <span class="room-badge">From $450</span>
+      </div>
+      <div class="room-info">
+        <h3 class="room-name">Deluxe Room</h3>
+        <div class="room-price">$450 <span>/ night</span></div>
+        <div class="room-amenities">
+          <span class="amenity">King Bed</span><span class="amenity">City View</span><span class="amenity">Marble Bath</span><span class="amenity">Mini Bar</span><span class="amenity">Butler</span>
+        </div>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.8;margin-bottom:1.25rem;font-weight:300">650 sq ft of refined luxury. Opulent furnishings, bespoke amenities, and stunning city panoramas.</p>
+        <button class="room-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Reserve This Suite</button>
+      </div>
+    </div>
+    <div class="room-card" style="border-color:rgba(201,168,76,0.4)">
+      <div class="room-img">
+        <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=500&q=80" alt="Executive Suite">
+        <span class="room-badge" style="background:#fff;color:#000">Most Popular</span>
+      </div>
+      <div class="room-info">
+        <h3 class="room-name">Executive Suite</h3>
+        <div class="room-price">$1,200 <span>/ night</span></div>
+        <div class="room-amenities">
+          <span class="amenity">Living Room</span><span class="amenity">Panoramic View</span><span class="amenity">Jacuzzi</span><span class="amenity">Dining Room</span><span class="amenity">Concierge</span>
+        </div>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.8;margin-bottom:1.25rem;font-weight:300">1,400 sq ft of indulgence. A separate living suite, private dining, and sweeping panoramic vistas.</p>
+        <button class="room-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Reserve This Suite</button>
+      </div>
+    </div>
+    <div class="room-card">
+      <div class="room-img">
+        <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=500&q=80" alt="Presidential Villa">
+        <span class="room-badge">From $6,500</span>
+      </div>
+      <div class="room-info">
+        <h3 class="room-name">Presidential Villa</h3>
+        <div class="room-price">$6,500 <span>/ night</span></div>
+        <div class="room-amenities">
+          <span class="amenity">Private Pool</span><span class="amenity">Chef</span><span class="amenity">Terrace</span><span class="amenity">Cinema</span><span class="amenity">Security</span>
+        </div>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.45);line-height:1.8;margin-bottom:1.25rem;font-weight:300">4,200 sq ft of absolute opulence. A private world — rooftop terrace, plunge pool, and dedicated staff.</p>
+        <button class="room-btn" onclick="document.getElementById('booking').scrollIntoView({behavior:'smooth'})">Reserve This Suite</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="locations">
+  <div class="locations-content">
+    <div class="locations-header">
+      <p class="section-label">Our Properties</p>
+      <h2 class="section-title">Five Iconic Destinations</h2>
+      <div class="section-divider"></div>
+      <p style="color:rgba(255,255,255,0.5);font-size:0.95rem;font-weight:300">From coast to coast, Elite Haven Hotels occupies the most coveted addresses in America.</p>
+    </div>
+    <div class="map-container">
+      <div style="font-size:3rem;color:rgba(201,168,76,0.3)">🗺</div>
+      <p style="color:rgba(201,168,76,0.6);font-family:'Playfair Display',serif;font-size:1.1rem;letter-spacing:2px">Interactive Map</p>
+      <p style="color:rgba(255,255,255,0.3);font-size:0.8rem;letter-spacing:1px">Beverly Hills · New York · Chicago · Washington D.C. · Maui</p>
+      <div style="display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;margin-top:0.5rem">
+        <span style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:rgba(201,168,76,0.7);font-size:0.65rem;letter-spacing:2px;padding:0.3rem 0.8rem;text-transform:uppercase">📍 34.0736° N, 118.4004° W</span>
+        <span style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:rgba(201,168,76,0.7);font-size:0.65rem;letter-spacing:2px;padding:0.3rem 0.8rem;text-transform:uppercase">📍 40.7736° N, 73.9566° W</span>
+        <span style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:rgba(201,168,76,0.7);font-size:0.65rem;letter-spacing:2px;padding:0.3rem 0.8rem;text-transform:uppercase">📍 41.8827° N, 87.6233° W</span>
+      </div>
+    </div>
+    <div class="locations-grid">
+      <div class="location-card"><div class="loc-icon">🌴</div><div class="loc-city">Beverly Hills</div><div class="loc-state">California</div><div class="loc-rooms">120 Suites</div></div>
+      <div class="location-card"><div class="loc-icon">🗽</div><div class="loc-city">New York City</div><div class="loc-state">New York</div><div class="loc-rooms">98 Suites</div></div>
+      <div class="location-card"><div class="loc-icon">🌆</div><div class="loc-city">Chicago</div><div class="loc-state">Illinois</div><div class="loc-rooms">85 Suites</div></div>
+      <div class="location-card"><div class="loc-icon">🏛</div><div class="loc-city">Washington D.C.</div><div class="loc-state">District of Columbia</div><div class="loc-rooms">72 Suites</div></div>
+      <div class="location-card"><div class="loc-icon">🌺</div><div class="loc-city">Maui</div><div class="loc-state">Hawaii</div><div class="loc-rooms">125 Suites</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="services-header">
+    <p class="section-label">Amenities</p>
+    <h2 class="section-title">World-Class Services</h2>
+    <div class="section-divider"></div>
+    <p style="color:rgba(255,255,255,0.5);font-size:0.95rem;font-weight:300">Every service anticipates your needs before you voice them.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-item"><div class="service-icon">🎩</div><h3 class="service-title">24/7 Concierge</h3><p class="service-desc">Your personal guide to the finest restaurants, exclusive events, and hidden gems — available around the clock.</p></div>
+    <div class="service-item"><div class="service-icon">🚗</div><h3 class="service-title">Private Chauffeur</h3><p class="service-desc">Travel in absolute discretion. Our fleet of luxury vehicles and professional drivers are at your service, anytime.</p></div>
+    <div class="service-item"><div class="service-icon">💆</div><h3 class="service-title">Spa & Wellness</h3><p class="service-desc">Restore your body and spirit in our award-winning spas. Ancient rituals meet modern science in perfect harmony.</p></div>
+    <div class="service-item"><div class="service-icon">🍽</div><h3 class="service-title">Fine Dining</h3><p class="service-desc">Michelin-starred culinary experiences crafted by world-renowned chefs using only the finest seasonal ingredients.</p></div>
+    <div class="service-item"><div class="service-icon">🏊</div><h3 class="service-title">Rooftop Infinity Pool</h3><p class="service-desc">Float above the city skyline. Our rooftop pools offer breathtaking panoramic views and an unmatched sense of serenity.</p></div>
+    <div class="service-item"><div class="service-icon">✈️</div><h3 class="service-title">Private Jet Transfers</h3><p class="service-desc">Seamless arrival and departure experiences — from tarmac to suite, we ensure your journey is as luxurious as your stay.</p></div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="gallery-header">
+    <p class="section-label">Gallery</p>
+    <h2 class="section-title">A Visual Journey</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80" alt="Grand Lobby"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=500&q=80" alt="Marble Suite Bathroom"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=500&q=80" alt="Infinity Pool"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=500&q=80" alt="Fine Dining Wine"></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80" alt="Ocean View Resort"></div>
+  </div>
+</section>
+
+<section id="booking">
+  <div class="booking-section">
+    <p class="section-label">Reservations</p>
+    <h2 class="section-title">Begin Your Journey</h2>
+    <div class="section-divider"></div>
+    <p style="color:rgba(255,255,255,0.5);font-size:0.95rem;font-weight:300">Secure your suite with our seamless reservation system. Best rate guaranteed.</p>
+    <div class="booking-form">
+      <div class="form-grid">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="Your first name"/></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Your last name"/></div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"/></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+1 (000) 000-0000"/></div>
+        <div class="form-group"><label>Check-In Date</label><input type="date"/></div>
+        <div class="form-group"><label>Check-Out Date</label><input type="date"/></div>
+        <div class="form-group"><label>Property</label>
+          <select><option>Beverly Hills, California</option><option>New York City, New York</option><option>Chicago, Illinois</option><option>Washington D.C.</option><option>Maui, Hawaii</option></select>
+        </div>
+        <div class="form-group"><label>Suite Type</label>
+          <select><option>Deluxe Room — From $450/night</option><option>Executive Suite — From $1,200/night</option><option>Presidential Villa — From $6,500/night</option></select>
+        </div>
+        <div class="form-group form-full"><label>Special Requests</label><input type="text" placeholder="Dietary requirements, special occasions, accessibility needs..."/></div>
+      </div>
+      <div class="payment-section">
+        <span class="payment-label">Payment Method</span>
+        <div class="payment-methods">
+          <button class="pay-btn active" onclick="selectPay(this)">💳 Credit Card</button>
+          <button class="pay-btn" onclick="selectPay(this)">🅿 PayPal</button>
+          <button class="pay-btn" onclick="selectPay(this)">🍎 Apple Pay</button>
+          <button class="pay-btn" onclick="selectPay(this)">🔷 Stripe</button>
+        </div>
+        <button class="btn-gold" style="width:100%;padding:1rem;font-size:0.85rem;letter-spacing:3px" onclick="confirmBooking()">Confirm Reservation</button>
+        <p style="text-align:center;margin-top:1rem;font-size:0.75rem;color:rgba(255,255,255,0.3);letter-spacing:1px">🔒 Secure 256-bit SSL encryption · Best rate guaranteed · Free cancellation up to 48 hours</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-grid">
+    <div>
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">We're Here for You</h2>
+      <div class="section-divider"></div>
+      <p style="color:rgba(255,255,255,0.5);font-size:0.95rem;font-weight:300;margin-bottom:2rem">Our guest relations team is available 24 hours a day, seven days a week, to ensure your experience is flawless from the very first contact.</p>
+      <div class="contact-form">
+        <input type="text" placeholder="Your Full Name"/>
+        <input type="email" placeholder="Email Address"/>
+        <input type="text" placeholder="Subject"/>
+        <textarea rows="5" placeholder="Your message..."></textarea>
+        <button class="btn-gold" style="align-self:flex-start;padding:0.85rem 2.5rem" onclick="alert('Thank you! A member of our team will respond within 2 hours.')">Send Message</button>
+      </div>
+    </div>
+    <div>
+      <div class="contact-info" style="margin-top:5.5rem">
+        <div class="contact-item"><div class="contact-icon">📞</div><div><div class="contact-detail">Reservations</div><div class="contact-value">+1 (800) ELITE-1 · +1 (310) 555-9100</div></div></div>
+        <div class="contact-item"><div class="contact-icon">✉️</div><div><div class="contact-detail">Email</div><div class="contact-value">reservations@elitehavenhotels.com</div></div></div>
+        <div class="contact-item"><div class="contact-icon">💬</div><div><div class="contact-detail">WhatsApp</div><div class="contact-value">+1 (310) 555-9200 · Available 24/7</div></div></div>
+        <div class="contact-item"><div class="contact-icon">🏢</div><div><div class="contact-detail">Corporate HQ</div><div class="contact-value">9876 Rodeo Drive, Beverly Hills<br>California 90210, USA</div></div></div>
+        <div style="margin-top:2rem;padding:1.5rem;border:1px solid rgba(201,168,76,0.2);background:rgba(201,168,76,0.04)">
+          <p style="font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem">Response Time</p>
+          <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.8">Our guest relations team responds to all inquiries within <strong style="color:rgba(255,255,255,0.75);font-weight:500">2 hours</strong>. For urgent assistance, please call our 24/7 concierge line.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">ELITE HAVEN</div>
+      <p class="footer-desc">Five iconic properties across America, united by an unwavering commitment to luxury, privacy, and world-class hospitality since 1985.</p>
+      <div style="display:flex;gap:1rem;margin-top:1.5rem">
+        <span style="width:36px;height:36px;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;transition:.3s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)'">in</span>
+        <span style="width:36px;height:36px;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;transition:.3s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)'">ig</span>
+        <span style="width:36px;height:36px;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;transition:.3s" onmouseover="this.style.borderColor='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)'">fb</span>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Properties</h4><ul><li><a href="#locations">Beverly Hills</a></li><li><a href="#locations">New York City</a></li><li><a href="#locations">Chicago</a></li><li><a href="#locations">Washington D.C.</a></li><li><a href="#locations">Maui, Hawaii</a></li></ul></div>
+    <div class="footer-col"><h4>Suites</h4><ul><li><a href="#rooms">Deluxe Room</a></li><li><a href="#rooms">Executive Suite</a></li><li><a href="#rooms">Presidential Villa</a></li><li><a href="#services">Spa &amp; Wellness</a></li><li><a href="#services">Fine Dining</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="#about">About Us</a></li><li><a href="#contact">Contact</a></li><li><a href="#">Careers</a></li><li><a href="#">Press &amp; Media</a></li><li><a href="#">Gift Cards</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Elite Haven Hotels & Resorts. All rights reserved.</span>
+    <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Cookie Settings</a></div>
+  </div>
+</footer>
+
+<div id="chatbot">
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-avatar">EH</div>
+      <div><div class="chat-title">Elite Haven Concierge</div><div class="chat-subtitle">AI-Powered · Available 24/7</div></div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg msg-ai">Welcome to Elite Haven Hotels. I'm your personal AI concierge. How may I assist you today — suite recommendations, availability, or our world-class amenities?</div>
+    </div>
+    <div class="chat-suggestions">
+      <button class="sug-btn" onclick="sendSuggestion('What suites do you recommend for a honeymoon?')">Honeymoon suite</button>
+      <button class="sug-btn" onclick="sendSuggestion('What amenities are included with the Presidential Villa?')">Villa amenities</button>
+      <button class="sug-btn" onclick="sendSuggestion('Which location is best for a beach vacation?')">Best beach location</button>
+    </div>
+    <div class="chat-input-area">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Ask our concierge..." onkeydown="if(event.key==='Enter')sendChat()"/>
+      <button class="chat-send" onclick="sendChat()">Send</button>
+    </div>
+  </div>
+  <button class="chat-toggle" onclick="toggleChat()" id="chatToggle" title="AI Concierge">💬</button>
+</div>
+
+<script>
+// HERO SLIDER
+let cur=0;const slides=document.querySelectorAll('.hero-slide'),dots=document.querySelectorAll('.dot');
+function goSlide(n){slides[cur].classList.remove('active');dots[cur].classList.remove('active');cur=n;slides[cur].classList.add('active');dots[cur].classList.add('active')}
+setInterval(()=>goSlide((cur+1)%slides.length),5000);
+
+// BOOKING BAR defaults
+const t=new Date,t2=new Date(t);t2.setDate(t.getDate()+2);
+document.getElementById('checkin').value=t.toISOString().split('T')[0];
+document.getElementById('checkout').value=t2.toISOString().split('T')[0];
+
+function checkAvail(){alert('✓ Availability confirmed for your selected dates.\n\nScroll down to complete your reservation.')}
+function selectPay(b){document.querySelectorAll('.pay-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active')}
+function confirmBooking(){alert('🎉 Reservation Request Received!\n\nA member of our Guest Relations team will confirm your booking within 2 hours via email.\n\nThank you for choosing Elite Haven Hotels.')}
+
+// CHATBOT
+let chatOpen=false;
+function toggleChat(){chatOpen=!chatOpen;document.getElementById('chatWindow').classList.toggle('open',chatOpen)}
+
+const SYSTEM=`You are the AI concierge for Elite Haven Hotels, a ultra-luxury 5-star hotel chain with properties in Beverly Hills, New York City, Chicago, Washington D.C., and Maui, Hawaii. 
+
+Rooms: Deluxe Room ($450/night, 650 sq ft, king bed, city view, marble bath), Executive Suite ($1,200/night, 1,400 sq ft, panoramic view, jacuzzi, living room), Presidential Villa ($6,500/night, 4,200 sq ft, private pool, chef, terrace, cinema).
+
+Services: 24/7 concierge, private chauffeur, spa & wellness, fine dining (Michelin-starred), rooftop infinity pool, private jet transfers.
+
+Be warm, sophisticated, and helpful. Keep responses concise and elegant — 2-4 sentences max. Use refined language befitting a 5-star hotel.`;
+
+let chatHistory=[];
+
+async function sendChat(){
+  const inp=document.getElementById('chatInput');
+  const msg=inp.value.trim();
+  if(!msg)return;
+  inp.value='';
+  addMsg(msg,'user');
+  chatHistory.push({role:'user',content:msg});
+  const typingEl=addTyping();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:300,
+        system:SYSTEM,
+        messages:chatHistory
+      })
+    });
+    const data=await res.json();
+    const reply=data.content?.[0]?.text||'I apologize — please contact our concierge at +1 (800) ELITE-1 for assistance.';
+    chatHistory.push({role:'assistant',content:reply});
+    typingEl.remove();
+    addMsg(reply,'ai');
+  }catch(e){
+    typingEl.remove();
+    addMsg('My apologies — I\'m momentarily unavailable. Please call our concierge at +1 (800) ELITE-1.','ai');
+  }
+}
+
+function sendSuggestion(t){document.getElementById('chatInput').value=t;sendChat()}
+
+function addMsg(text,type){
+  const el=document.createElement('div');
+  el.className=`chat-msg msg-${type}`;
+  el.textContent=text;
+  const msgs=document.getElementById('chatMessages');
+  msgs.appendChild(el);
+  msgs.scrollTop=msgs.scrollHeight;
+  return el;
+}
+
+function addTyping(){
+  const el=document.createElement('div');
+  el.className='chat-msg msg-ai msg-typing';
+  el.innerHTML='<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+  const msgs=document.getElementById('chatMessages');
+  msgs.appendChild(el);
+  msgs.scrollTop=msgs.scrollHeight;
+  return el;
+}
+</script>
+</body>
+</html>
